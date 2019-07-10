@@ -1,7 +1,6 @@
 import { Message } from "discord.js";
-import fs from "fs";
-import Path from "path";
 
+import { importCogs } from "./utilities/cogs";
 import logger from "./utilities/logger";
 
 type Command = (message: Message) => Promise<void>;
@@ -11,7 +10,6 @@ type CommandStore = {
 
 const PHASE = "commands";
 
-const COGS_DIR = Path.join(__dirname, "cogs");
 const COMMAND_TABLE: CommandStore = {};
 
 /**
@@ -46,8 +44,7 @@ export function registerCmd(...handles: string[]): MethodDecorator {
       }
 
       /**
-       * Wrap the command that attaches commands to the error for more
-       * comprehensive logging upon error.
+       * Wrap the command to capture errors for more comprehensive logging.
        *
        * @param message
        */
@@ -76,31 +73,11 @@ export async function executeCommand(
     }
     logger.verbose(`Command not found: ${command}`, { label: PHASE });
   } catch (error) {
+    message.reply("Command failed :pensive:");
     const commandPhase = error.phase || PHASE;
     logger.error(`${error.message}`, { label: commandPhase });
-    logger.debug(`${error.stack}`, { label: commandPhase });
+    logger.debug(`Stacktrace:\n${error.stack}`, { label: commandPhase });
   }
 }
 
-/**
- * Walks the cogs directories for commands.
- */
-function importCogs(): void {
-  const cogs = fs
-    .readdirSync(COGS_DIR)
-    .map(cogDir =>
-      fs
-        .readdirSync(Path.join(COGS_DIR, cogDir))
-        .filter(cogSrc => cogSrc.toLowerCase().match(/.command.js$/))
-        .map(filename => Path.join(COGS_DIR, cogDir, filename))
-    )
-    .filter(commands => commands.length > 0);
-
-  for (const cog of cogs) {
-    for (const command of cog) {
-      require(command);
-    }
-  }
-}
-
-importCogs();
+importCogs("command");

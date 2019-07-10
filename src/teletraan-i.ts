@@ -2,6 +2,7 @@ import Discord, { Guild } from "discord.js";
 
 import { executeCommand } from "./commands";
 import CONFIG from "./config";
+import { executeMatchers } from "./matchers";
 import logger from "./utilities/logger";
 
 const PHASE = "Teletraan I";
@@ -41,10 +42,7 @@ class TeletraanI {
 
         executeCommand(command, msg);
       } else {
-        // use the matcher
-        if (msg.content === "ping") {
-          msg.reply("pong");
-        }
+        executeMatchers(msg);
       }
     });
   }
