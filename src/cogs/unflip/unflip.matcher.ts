@@ -8,7 +8,7 @@ class Unflip {
    *
    * @param message
    */
-  @registerMatcher(/[(╯°□°）╯︵ ┻━┻]/)
+  @registerMatcher(/\(╯°□°）╯︵ ┻━┻/)
   public static async unflip(message: Message) {
     message.channel.send("┬─┬ ノ( ゜-゜ノ)");
   }
