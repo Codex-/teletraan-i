@@ -11,6 +11,6 @@ class EightBall {
    */
   @registerCmd("8ball")
   public static async eightBall(message: Message): Promise<void> {
-    message.reply(eightBallRoll());
+    await message.reply(eightBallRoll());
   }
 }

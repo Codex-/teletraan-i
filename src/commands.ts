@@ -4,9 +4,9 @@ import { importCogs } from "./utilities/cogs";
 import logger from "./utilities/logger";
 
 type Command = (message: Message) => Promise<void>;
-type CommandStore = {
+interface CommandStore {
   [id: string]: Command;
-};
+}
 
 const PHASE = "commands";
 
@@ -66,18 +66,25 @@ export async function executeCommand(
   command: string,
   message: Message
 ): Promise<void> {
-  try {
-    if (COMMAND_TABLE[command]) {
-      await COMMAND_TABLE[command](message);
-      return;
+  /**
+   * Wrap and execute the command call to handle promise rejections
+   * whilst not blocking iteration.
+   */
+  // tslint:disable-next-line: no-floating-promises
+  (async () => {
+    try {
+      if (COMMAND_TABLE[command]) {
+        await COMMAND_TABLE[command](message);
+        return;
+      }
+      logger.verbose(`Command not found: ${command}`, { label: PHASE });
+    } catch (error) {
+      await message.reply("Command failed :pensive:");
+      const commandPhase = error.phase || PHASE;
+      logger.error(`${error.message}`, { label: commandPhase });
+      logger.debug(`Stacktrace:\n${error.stack}`, { label: commandPhase });
     }
-    logger.verbose(`Command not found: ${command}`, { label: PHASE });
-  } catch (error) {
-    message.reply("Command failed :pensive:");
-    const commandPhase = error.phase || PHASE;
-    logger.error(`${error.message}`, { label: commandPhase });
-    logger.debug(`Stacktrace:\n${error.stack}`, { label: commandPhase });
-  }
+  })();
 }
 
 importCogs("command");

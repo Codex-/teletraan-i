@@ -5,6 +5,6 @@ import { registerMatcher } from "../../matchers";
 class Ping {
   @registerMatcher(/^ping$/i)
   public static async ping(message: Message) {
-    message.reply("pong");
+    await message.reply("pong");
   }
 }
