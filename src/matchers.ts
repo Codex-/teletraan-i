@@ -44,7 +44,7 @@ export function registerMatcher(regex: RegExp): MethodDecorator {
 
     MATCHER_ARRAY.push({
       regex,
-      method: wrappedMatcher
+      method: wrappedMatcher,
     });
   };
 }
@@ -56,6 +56,7 @@ export async function executeMatchers(message: Message): Promise<void> {
        * Wrap and execute the matcher method call to handle promise rejections
        * whilst not blocking iteration.
        */
+      // tslint:disable-next-line: no-floating-promises
       (async () => {
         try {
           await matcherEntry.method(message);

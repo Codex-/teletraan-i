@@ -20,13 +20,13 @@ class TeletraanI {
     await this.client.login(CONFIG.Discord.Key);
 
     logger.info(`Guilds: ${JSON.stringify(await this.getConnectedGuilds())}`, {
-      label: PHASE
+      label: PHASE,
     });
     logger.info("Ready!", { label: PHASE });
   }
 
   public bindMessageHandler() {
-    this.client.on("message", async msg => {
+    this.client.on("message", async (msg) => {
       if (msg.content.length === 0 || msg.author.bot) {
         return;
       }
@@ -40,23 +40,24 @@ class TeletraanI {
           .substr(this.commandChar.length)
           .split(/\s+/g)[0];
 
-        executeCommand(command, msg);
+        await executeCommand(command, msg);
       } else {
-        executeMatchers(msg);
+        await executeMatchers(msg);
       }
     });
   }
 
   private async getConnectedGuilds() {
-    return this.client.guilds.map((guild: Guild) => {
+    return this.client.guilds.cache.map((guild: Guild) => {
       return {
         name: guild.name,
-        id: guild.id
+        id: guild.id,
       };
     });
   }
 }
 
+// tslint:disable-next-line: no-floating-promises
 (async () => {
   const teletraanI = new TeletraanI();
 
