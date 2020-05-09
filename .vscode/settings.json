@@ -6,6 +6,7 @@
         "descriptior",
         "erlpack",
         "hammerandchisel",
+        "printf",
         "thumbsdown",
         "thumbsup",
         "tslib"

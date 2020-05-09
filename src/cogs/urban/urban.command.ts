@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from "discord.js";
+import { Message, MessageEmbed } from "discord.js";
 
 import { getArgs, registerCmd } from "../../commands";
 import { urbanApi } from "./urban.api";
@@ -18,22 +18,22 @@ class Urban {
       const results = await urbanApi(searchTerms);
 
       if (results.length === 0) {
-        message.reply(`Not results found for ${searchTerms}`);
+        await message.reply(`Not results found for ${searchTerms}`);
         return;
       }
 
       const topResult = results[0];
-      const embed = new RichEmbed()
+      const embed = new MessageEmbed()
         .setColor(0xffff00)
         .setDescription([
           Urban.cleanDefinition(topResult.definition),
           "",
-          `${topResult.thumbs_up} :thumbsup: :black_small_square: ${topResult.thumbs_down} :thumbsdown:`
+          `${topResult.thumbs_up} :thumbsup: :black_small_square: ${topResult.thumbs_down} :thumbsdown:`,
         ])
         .setTitle(topResult.word)
         .setURL(topResult.permalink);
 
-      channel.send(embed);
+      await channel.send(embed);
     }
   }
 

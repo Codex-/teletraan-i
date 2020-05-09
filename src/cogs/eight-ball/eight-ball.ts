@@ -18,7 +18,7 @@ const ANSWERS = [
   "My reply is no.",
   "My sources say no.",
   "Outlook not so good.",
-  "Very doubtful."
+  "Very doubtful.",
 ];
 
 export function eightBallRoll(): string {

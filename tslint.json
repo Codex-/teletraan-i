@@ -1,4 +1,5 @@
 {
+  "defaultSeverity": "error",
   "extends": [
     "tslint:latest",
     "tslint-config-prettier"
@@ -8,11 +9,17 @@
       true,
       "array-simple"
     ],
-    "await-promise": true,
-    "comment-format": true,
+    "arrow-return-shorthand": true,
+    "await-promise": [
+      true,
+      "PromisedAssertion"
+    ],
+    "binary-expression-operand-order": true,
+    "curly": true,
     "interface-name": false,
-    "interface-over-type-literal": false,
+    "interface-over-type-literal": true,
     "max-classes-per-file": false,
+    "max-line-length": false,
     "member-ordering": [
       true,
       {
@@ -25,29 +32,34 @@
         ]
       }
     ],
-    "no-bitwise": false,
-    "no-console": false,
-    "no-empty": [
-      true,
-      "allow-empty-functions"
-    ],
-    "no-implicit-dependencies": false,
-    "no-submodule-imports": false,
-    "no-var-requires": false,
+    "no-console": true,
+    "no-duplicate-imports": true,
+    "no-floating-promises": true,
+    "no-for-in-array": true,
+    "no-inferred-empty-object-type": true,
+    "no-null-keyword": true,
+    "no-object-literal-type-assertion": true,
+    "no-reference": false,
+    "no-sparse-arrays": true,
+    "no-this-assignment": true,
+    "no-unbound-method": true,
+    "object-literal-shorthand": false,
     "object-literal-sort-keys": false,
-    "only-arrow-functions": false,
+    "ordered-imports": true,
     "prefer-for-of": true,
+    "prefer-object-spread": true,
     "prefer-template": true,
-    "triple-equals": [
-      true,
-      "allow-null-check"
-    ],
-    "variable-name": [
-      true,
-      "ban-keywords",
-      "check-format",
-      "allow-pascal-case",
-      "allow-leading-underscore"
-    ]
+    "triple-equals": true,
+    "promise-function-async": true,
+    "strict-type-predicates": true,
+    "switch-default": true,
+    "variable-name": {
+      "options": [
+        "allow-leading-underscore",
+        "allow-pascal-case",
+        "ban-keywords",
+        "check-format"
+      ]
+    }
   }
 }

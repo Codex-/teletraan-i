@@ -10,6 +10,6 @@ class Unflip {
    */
   @registerMatcher(/\(╯°□°）╯︵ ┻━┻/)
   public static async unflip(message: Message) {
-    message.channel.send("┬─┬ ノ( ゜-゜ノ)");
+    await message.channel.send("┬─┬ ノ( ゜-゜ノ)");
   }
 }
