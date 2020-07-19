@@ -1,6 +1,6 @@
 {
   "name": "teletraan-i",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Discord bot",
   "main": "./build/teletraan-i.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "format:check": "prettier --check \"./src/**/*.{json,ts}\"",
     "format:write": "npm run format:check -- --write",
     "lint": "tslint --project tsconfig.json",
-    "prebuild": "npm run format && npm run lint && npm run clean",
+    "prebuild": "npm run format:check && npm run lint && npm run clean",
     "start": "node build/teletraan.js",
     "test": "npm run format:check && npm run lint"
   },
@@ -28,17 +28,17 @@
     "discord.js": "^12.2.0",
     "erlpack": "github:hammerandchisel/erlpack",
     "node-fetch": "^2.6.0",
-    "tslib": "^1.11.2",
-    "winston": "^3.2.1"
+    "tslib": "^2.0.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@types/node": "^13.13.5",
+    "@types/node": "^14.0.23",
     "@types/node-fetch": "^2.5.7",
-    "@types/ws": "^7.2.4",
+    "@types/ws": "^7.2.6",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.7"
   }
 }
